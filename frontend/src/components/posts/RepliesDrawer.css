@@ -1,0 +1,210 @@
+.replies-drawer {
+	background: #f5f6fa;
+	border-radius: 0 0 18px 18px;
+	margin: 0 auto 2rem auto;
+	box-shadow: 0 4px 18px rgba(80, 80, 120, 0.1);
+	max-width: 85%;
+	width: 85%;
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	/* Smooth height transition */
+	transition: max-height 0.5s cubic-bezier(0.4, 1.4, 0.6, 1);
+	overflow: hidden;
+	max-height: 40px; /* Collapsed height (just the button) */
+}
+
+.replies-drawer.expanded {
+	max-height: 520px; /* Or whatever max you want for expanded */
+}
+
+.replies-drawer-inner {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+.replies-drawer-scroll {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 0;
+	padding: 0.7rem 0.5rem 0.2rem 0.5rem;
+	max-height: 400px; /* Or whatever fits inside expanded drawer */
+}
+
+.replies-drawer-btn-row {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border-top: none;
+	flex-shrink: 0;
+	min-height: min-content;
+}
+
+.replies-drawer-toggle {
+	padding: 0px;
+	background: none;
+	border: none;
+	color: #7b7ce6;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	border-radius: 8px;
+	width: 100%;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+}
+.replies-drawer-toggle:hover,
+.replies-drawer-toggle:focus {
+	background: none;
+	border: none;
+	outline: none;
+}
+
+.replies-drawer-content {
+	display: flex;
+	flex-direction: column;
+	/* No forced height, no display:none */
+}
+
+.replies-drawer-content.expanded {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	position: relative;
+	min-height: 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	overflow: visible;
+}
+.replies-drawer-content.expanded > * {
+	margin: initial;
+	border: initial;
+	min-height: initial;
+}
+
+/* Comments Section */
+.post-comments-toggle {
+	margin-top: 1rem;
+	cursor: pointer;
+	color: #6c63ff;
+	font-weight: 500;
+	font-size: 1.05rem;
+	display: flex;
+	align-items: center;
+	user-select: none;
+	transition: color 0.2s;
+}
+.post-comments-toggle:hover {
+	color: #4834d4;
+}
+
+.post-comments-section {
+	background: #f7f8fa;
+	border-radius: 0 0 12px 12px;
+	margin: 0 -1.5rem -1.5rem -1.5rem;
+	padding: 1rem 1.5rem 1.2rem 1.5rem;
+	border-top: 1px solid #e0e0e0;
+}
+
+.post-comments-list {
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 0.7rem;
+}
+
+/* Individual Comment */
+.post-comment {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.1rem 1.5rem 2.1rem 1.5rem;
+	margin-bottom: 1.2rem;
+	box-shadow: 0 1px 6px rgba(80, 80, 120, 0.06);
+	color: #222;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+.post-comment-author {
+	font-weight: 500;
+	color: #7b7ce6;
+	font-size: 1.05rem;
+	margin-bottom: 0.2rem;
+}
+.post-comment-body {
+	margin: 0.2rem 0 0.1rem 0;
+	font-size: 1.08rem;
+	color: #222;
+	padding-bottom: 0.5rem;
+}
+.post-comment-date {
+	font-size: 0.92rem;
+	color: #aaa;
+	position: absolute;
+	bottom: 1rem;
+	right: 1.5rem;
+}
+
+/* Comment Input */
+.post-comment-input-row {
+	display: flex;
+	gap: 0.7rem;
+	align-items: center;
+	padding: 0.7rem 0 0.2rem 0;
+	border-top: 1px solid #e0e0e0;
+	background: none;
+	flex-shrink: 0;
+}
+.post-comment-input {
+	flex: 1;
+	border: 1px solid #bdbdbd;
+	border-radius: 8px;
+	padding: 0.7rem 1.1rem;
+	font-size: 1.05rem;
+	outline: none;
+	transition: border 0.2s;
+	background: #fff;
+	color: #222;
+	min-width: 0;
+}
+.post-comment-input:focus {
+	border: 1.5px solid #7b7ce6;
+}
+.post-comment-submit {
+	background: linear-gradient(90deg, #7b7ce6 0%, #8e44ad 100%);
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 0.7rem 1.5rem;
+	font-size: 1.05rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.2s, transform 0.2s;
+}
+.post-comment-submit:disabled {
+	background: #bdbdbd;
+	cursor: not-allowed;
+}
+.post-comment-empty {
+	color: #aaa;
+	font-style: italic;
+	padding: 0.5rem 0;
+	text-align: center;
+}
+
+@keyframes drawer-slide-in {
+	from {
+		transform: translateY(32px);
+	}
+	to {
+		transform: translateY(0);
+	}
+}

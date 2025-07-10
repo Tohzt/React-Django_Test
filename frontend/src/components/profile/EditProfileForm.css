@@ -1,0 +1,134 @@
+.edit-profile-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2000;
+	padding: 2rem;
+}
+
+.edit-profile-content {
+	background: #f9f9f9;
+	border-radius: 16px;
+	padding: 2rem;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+	width: 100%;
+	max-width: 600px;
+	max-height: 90vh;
+	overflow-y: auto;
+}
+
+.edit-profile-content h3 {
+	color: #333;
+	margin-bottom: 1.5rem;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.edit-profile-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+	background: #f5f6fa;
+	border: 1px solid #e1e5e9;
+	color: #333;
+	border-radius: 10px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+	padding: 0.75rem;
+	transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+	border-color: #764ba2;
+	box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.08);
+}
+
+.current-avatar {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 0.5rem;
+}
+
+.avatar-preview {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #667eea;
+}
+
+.avatar-menu {
+	background: #fff;
+	border: 1px solid #e1e5e9;
+	border-radius: 8px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	z-index: 10;
+	min-width: 180px;
+	padding: 0;
+}
+
+.avatar-menu-item {
+	width: 100%;
+	padding: 12px 20px;
+	background: none;
+	border: none;
+	text-align: center;
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	transition: background 0.15s, color 0.15s;
+}
+
+.avatar-menu-item:hover {
+	background: #f5f6fa;
+	color: #764ba2;
+}
+
+.avatar-menu-item:active {
+	background: #ececec;
+}
+
+.char-count {
+	color: #6c757d;
+	font-size: 0.8rem;
+	text-align: right;
+}
+
+.cancel-button {
+	transition: background 0.2s, transform 0.2s;
+}
+.cancel-button:hover {
+	background: #888;
+	transform: translateY(-2px);
+}
+
+.save-button {
+	transition: background 0.2s, transform 0.2s;
+}
+.save-button:hover {
+	background: linear-gradient(135deg, #5a6fd8 0%, #5a3ba2 100%);
+	transform: translateY(-2px);
+}
+
+.edit-actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1rem;
+}
