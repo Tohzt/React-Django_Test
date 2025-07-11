@@ -29,7 +29,15 @@ export const AuthProvider = ({ children }) => {
 		setUser({
 			id: userData.user_id,
 			username: userData.username,
+			avatar: userData.avatar || null,
 		});
+		// Also update localStorage to include avatar
+		const storedUser = {
+			id: userData.user_id,
+			username: userData.username,
+			avatar: userData.avatar || null,
+		};
+		localStorage.setItem("user", JSON.stringify(storedUser));
 	};
 
 	const logout = async () => {

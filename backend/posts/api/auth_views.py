@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
+from ..models import UserProfile
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -33,12 +34,16 @@ class RegisterView(APIView):
             password=password
         )
         
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = Token.objects.get_or_create(user=user)  # type: ignore[attr-defined]
+        # Fetch avatar URL
+        profile = getattr(user, 'profile', None)
+        avatar_url = profile.avatar.url if profile and profile.avatar else None
         
         return Response({
             'token': token.key,
             'user_id': user.id,
             'username': user.username,
+            'avatar': avatar_url,
             'message': 'User registered successfully'
         }, status=status.HTTP_201_CREATED)
 
@@ -62,14 +67,18 @@ class LoginView(APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
         
         login(request, user)
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = Token.objects.get_or_create(user=user)  # type: ignore[attr-defined]
+        # Fetch avatar URL
+        profile = getattr(user, 'profile', None)
+        avatar_url = profile.avatar.url if profile and profile.avatar else None
         
         return Response({
             'token': token.key,
             'user_id': user.id,
             'username': user.username,
+            'avatar': avatar_url,
             'message': 'Login successful'
-        })
+        }, status=status.HTTP_200_OK)
 
 class LogoutView(APIView):
     def post(self, request):

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import LoginFormV2 from "./LoginFormV2";
+import RegisterFormV2 from "./RegisterFormV2";
 import { useAuth } from "../../context/AuthContext";
 import "./AuthContainer.css";
 
@@ -27,12 +27,12 @@ function AuthContainer() {
 	return (
 		<div className="auth-container">
 			{isLogin ? (
-				<LoginForm
+				<LoginFormV2
 					onLoginSuccess={handleLoginSuccess}
 					onSwitchToRegister={switchToRegister}
 				/>
 			) : (
-				<RegisterForm
+				<RegisterFormV2
 					onRegisterSuccess={handleRegisterSuccess}
 					onSwitchToLogin={switchToLogin}
 				/>

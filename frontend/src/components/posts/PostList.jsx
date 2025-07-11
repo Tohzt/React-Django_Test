@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Button, Card } from "../ui";
+import { API_CONFIG, ERROR_MESSAGES } from "../../utils/constants";
 import EditPostForm from "./EditPostForm";
 import "./PostList.css";
 import RepliesDrawer from "./RepliesDrawer";
@@ -65,11 +67,14 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 
 	const fetchPosts = async () => {
 		try {
-			const response = await fetch("http://localhost:8000/api/posts/", {
-				headers: getAuthHeaders(),
-			});
+			const response = await fetch(
+				`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.POSTS.LIST}`,
+				{
+					headers: getAuthHeaders(),
+				}
+			);
 			if (!response.ok) {
-				throw new Error("Failed to fetch posts");
+				throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			}
 			const data = await response.json();
 			setPosts(data);
@@ -84,9 +89,9 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 		setCommentLoading((prev) => ({ ...prev, [postId]: true }));
 		try {
 			const response = await fetch(
-				`http://localhost:8000/api/comments/?post=${postId}`
+				`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS.LIST}?post=${postId}`
 			);
-			if (!response.ok) throw new Error("Failed to fetch comments");
+			if (!response.ok) throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			const data = await response.json();
 			setComments((prev) => ({ ...prev, [postId]: data }));
 		} catch (err) {
@@ -120,7 +125,9 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 
 		try {
 			const response = await fetch(
-				`http://localhost:8000/api/posts/${contextMenu.postId}/`,
+				`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.POSTS.DELETE(
+					contextMenu.postId
+				)}`,
 				{
 					method: "DELETE",
 					headers: getAuthHeaders(),
@@ -128,7 +135,7 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 			);
 
 			if (!response.ok) {
-				throw new Error("Failed to delete post");
+				throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			}
 
 			// Remove the deleted post from the local state
@@ -175,15 +182,18 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 		if (!body) return;
 		setCommentLoading((prev) => ({ ...prev, [postId]: true }));
 		try {
-			const response = await fetch("http://localhost:8000/api/comments/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					...getAuthHeaders(),
-				},
-				body: JSON.stringify({ post: postId, body }),
-			});
-			if (!response.ok) throw new Error("Failed to add comment");
+			const response = await fetch(
+				`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS.CREATE}`,
+				{
+					method: "POST",
+					headers: {
+						...API_CONFIG.HEADERS,
+						...getAuthHeaders(),
+					},
+					body: JSON.stringify({ post: postId, body }),
+				}
+			);
+			if (!response.ok) throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			setCommentInputs((prev) => ({ ...prev, [postId]: "" }));
 			fetchComments(postId);
 		} catch (err) {
@@ -209,53 +219,64 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 		setContextMenu({ show: false, x: 0, y: 0, postId: null, isOwnPost: false });
 	};
 
-	if (error) return <div>Error: {error}</div>;
+	if (error)
+		return (
+			<div className="error-message">
+				<span className="error-icon">⚠️</span>
+				Error: {error}
+			</div>
+		);
 
 	return (
 		<div className="post-list">
-			<h2>Posts from Django API</h2>
+			<h2 className="post-list-title">Community Posts</h2>
 			{loading && posts.length === 0 ? (
-				<div>Loading posts...</div>
+				<div className="loading-message">Loading posts...</div>
 			) : filteredPosts.length === 0 ? (
-				<p>
-					{searchTerm
-						? `No posts found matching "${searchTerm}"`
-						: "No posts found. Create some posts in the Django admin!"}
-				</p>
+				<div className="empty-state">
+					<p className="empty-message">
+						{searchTerm
+							? `No posts found matching "${searchTerm}"`
+							: "No posts found. Create some posts to get started!"}
+					</p>
+				</div>
 			) : (
 				<div className="posts">
 					{filteredPosts.map((post) => (
-						<div
-							className="post-container"
-							key={post.id}
-							style={{ position: "relative" }}
-						>
-							<div
-								className="post"
-								onContextMenu={(e) => {
-									handleContextMenu(e, post.id, post.author === user?.id);
-								}}
+						<>
+							<Card
+								variant="elevated"
+								className="post-container"
+								key={post.id}
+								style={{ position: "relative" }}
 							>
-								<div className="post-meta-row">
-									<img
-										src={
-											post.avatar
-												? `http://localhost:8000${post.avatar}`
-												: "/src/default_profile.png"
-										}
-										alt={post.author_username || "User avatar"}
-										className="post-avatar-small"
-									/>
-									<span className="post-username">
-										{post.author_username || "Anonymous"}
+								<Card.Body
+									className="post"
+									onContextMenu={(e) => {
+										handleContextMenu(e, post.id, post.author === user?.id);
+									}}
+								>
+									<div className="post-meta-row">
+										<img
+											src={
+												post.avatar
+													? `http://localhost:8000${post.avatar}`
+													: "/src/default_profile.png"
+											}
+											alt={post.author_username || "User avatar"}
+											className="post-avatar-small"
+										/>
+										<span className="post-username">
+											{post.author_username || "Anonymous"}
+										</span>
+									</div>
+									<h3 className="post-title">{post.title}</h3>
+									<p className="post-body">{post.body}</p>
+									<span className="post-timestamp">
+										{new Date(post.created_at).toLocaleDateString()}
 									</span>
-								</div>
-								<h3 className="post-title">{post.title}</h3>
-								<p className="post-body">{post.body}</p>
-								<span className="post-timestamp">
-									{new Date(post.created_at).toLocaleDateString()}
-								</span>
-							</div>
+								</Card.Body>
+							</Card>
 							<RepliesDrawer
 								expanded={expandedPostId === post.id}
 								onToggle={() => handleExpandComments(post.id)}
@@ -270,7 +291,7 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 									comments[post.id]?.length ?? post.comments_count ?? 0
 								}
 							/>
-						</div>
+						</>
 					))}
 				</div>
 			)}

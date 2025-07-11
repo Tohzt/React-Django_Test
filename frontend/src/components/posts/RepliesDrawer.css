@@ -1,5 +1,5 @@
 .replies-drawer {
-	background: #f5f6fa;
+	background: linear-gradient(135deg, var(--primary-700), var(--secondary-700));
 	border-radius: 0 0 18px 18px;
 	margin: 0 auto 2rem auto;
 	box-shadow: 0 4px 18px rgba(80, 80, 120, 0.1);
@@ -198,6 +198,93 @@
 	font-style: italic;
 	padding: 0.5rem 0;
 	text-align: center;
+}
+
+.replies-drawer__background {
+	background: transparent;
+	border-radius: 0 0 16px 16px;
+	width: 100%;
+	height: 100%;
+}
+
+html[data-theme="dark"] .replies-drawer {
+	background: linear-gradient(135deg, var(--primary-700), var(--secondary-700));
+	box-shadow: 0 4px 18px rgba(30, 30, 40, 0.25);
+}
+
+html[data-theme="dark"] .replies-drawer-toggle {
+	color: var(--primary-400);
+}
+
+html[data-theme="dark"] .replies-drawer {
+	position: relative;
+	z-index: 1;
+}
+
+/* Remove the border ::after pseudo-element */
+.replies-drawer::after {
+	display: none !important;
+	content: none !important;
+}
+
+html[data-theme="dark"] .post-comments-section {
+	background: var(--bg-primary);
+	border-top: 1px solid var(--border-light);
+}
+
+html[data-theme="dark"] .post-comment {
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	box-shadow: 0 1px 6px rgba(30, 30, 40, 0.12);
+}
+
+html[data-theme="dark"] .post-comment-author {
+	color: var(--primary-400);
+}
+
+html[data-theme="dark"] .post-comment-body {
+	color: var(--text-primary);
+}
+
+html[data-theme="dark"] .post-comment-date {
+	color: var(--text-muted);
+}
+
+html[data-theme="dark"] .post-comment-input-row {
+	border-top: 1px solid var(--border-light);
+	background: none;
+}
+
+html[data-theme="dark"] .post-comment-input {
+	background: var(--bg-primary);
+	color: var(--text-primary);
+	border: 1px solid var(--border-medium);
+}
+
+html[data-theme="dark"] .post-comment-input:focus {
+	border: 1.5px solid var(--primary-500);
+}
+
+html[data-theme="dark"] .post-comment-submit {
+	background: linear-gradient(
+		90deg,
+		var(--primary-700) 0%,
+		var(--secondary-700) 100%
+	);
+	color: var(--text-inverse);
+}
+
+html[data-theme="dark"] .post-comment-submit:disabled {
+	background: var(--border-medium);
+	color: var(--text-muted);
+}
+
+html[data-theme="dark"] .post-comment-empty {
+	color: var(--text-muted);
+}
+
+.post-comment-input-row--spaced {
+	margin-bottom: 1.5rem;
 }
 
 @keyframes drawer-slide-in {

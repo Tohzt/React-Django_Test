@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Button, Card } from "../ui";
+import { APP_CONFIG } from "../../utils/constants";
 import "./Home.css";
 
 function Home() {
@@ -8,36 +10,45 @@ function Home() {
 	return (
 		<div className="home-page">
 			<div className="home-content">
-				<h1>Welcome to React + Django TestApp</h1>
+				<h1 className="home-title">Welcome to {APP_CONFIG.NAME}</h1>
 				<p className="welcome-message">
-					Hello, {user.username}! Welcome to our community platform.
+					Hello, {user.username}! Welcome to our game development learning
+					platform.
 				</p>
 
 				<div className="navigation-cards">
-					<Link to="/posts" className="nav-card">
-						<div className="card-content">
-							<h3>📝 Community Posts</h3>
-							<p>Browse and create posts in our community forum</p>
-						</div>
-					</Link>
+					<Card variant="interactive" className="nav-card">
+						<Link to="/posts" className="nav-card-link">
+							<Card.Body>
+								<h3 className="card-title">📝 Community Posts</h3>
+								<p className="card-description">
+									Browse and create posts in our community forum
+								</p>
+							</Card.Body>
+						</Link>
+					</Card>
 
-					<Link to="/profile" className="nav-card">
-						<div className="card-content">
-							<h3>👤 My Profile</h3>
-							<p>View and edit your profile information</p>
-						</div>
-					</Link>
+					<Card variant="interactive" className="nav-card">
+						<Link to="/profile" className="nav-card-link">
+							<Card.Body>
+								<h3 className="card-title">👤 My Profile</h3>
+								<p className="card-description">
+									View and edit your profile information
+								</p>
+							</Card.Body>
+						</Link>
+					</Card>
 				</div>
 
 				<div className="quick-actions">
-					<h3>Quick Actions</h3>
+					<h3 className="section-title">Quick Actions</h3>
 					<div className="action-buttons">
-						<Link to="/posts" className="action-button primary">
+						<Button as={Link} to="/posts" variant="primary" size="large">
 							View Posts
-						</Link>
-						<Link to="/profile" className="action-button secondary">
+						</Button>
+						<Button as={Link} to="/profile" variant="outline" size="large">
 							My Profile
-						</Link>
+						</Button>
 					</div>
 				</div>
 			</div>

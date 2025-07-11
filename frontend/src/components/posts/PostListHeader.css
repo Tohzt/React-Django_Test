@@ -1,41 +1,22 @@
 .post-list-header-area {
+	margin-bottom: var(--space-5);
+}
+
+.header-content {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20px;
-	padding: 20px;
-	background: white;
-	border-radius: 12px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	gap: 20px;
+	gap: var(--space-5);
 }
 
 .create-post-btn {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	color: white;
-	border: none;
-	padding: 12px 24px;
-	border-radius: 25px;
-	font-weight: 600;
-	cursor: pointer;
-	transition: all 0.3s ease;
 	white-space: nowrap;
 }
 
-.create-post-btn:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.create-post-btn:active {
-	transform: translateY(0);
-}
-
 @media (max-width: 768px) {
-	.post-list-header-area {
+	.header-content {
 		flex-direction: column;
-		gap: 15px;
-		padding: 15px;
+		gap: var(--space-4);
 	}
 
 	.create-post-btn {

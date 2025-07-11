@@ -1,22 +1,20 @@
 .post-form {
 	width: 40rem;
-	background: white;
-	border-radius: 12px;
-	padding: 2rem;
-	margin-bottom: 2rem;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 100%;
 }
 
 .post-form-container {
-	border: 5px solid green;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.post-form-container h3 {
-	color: #333;
-	font-size: 1.5rem;
+.form-title {
+	color: var(--text-primary);
+	font-size: var(--text-2xl);
+	font-weight: var(--font-bold);
+	font-family: var(--font-family-display);
+	margin-bottom: var(--space-6);
 }
 
 .form-container {
@@ -25,7 +23,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 1rem;
+	gap: var(--space-4);
 }
 
 .form-group {
@@ -38,45 +36,37 @@
 
 .form-group label {
 	display: block;
-	margin-bottom: 0.5rem;
-	color: #333;
-	font-weight: 500;
+	margin-bottom: var(--space-2);
+	color: var(--text-primary);
+	font-weight: var(--font-medium);
+	font-size: var(--text-sm);
 }
 
 .form-group input,
 .form-group textarea {
 	width: 100%;
-	padding: 0.75rem;
-	border-radius: 6px;
-	font-size: 1rem;
-	font-family: inherit;
+	padding: var(--space-3);
+	border: var(--input-border-width) solid var(--input-border-color);
+	border-radius: var(--radius-md);
+	font-size: var(--text-base);
+	font-family: var(--font-family-primary);
+	background: var(--bg-primary);
+	color: var(--text-primary);
+	transition: all var(--transition-base);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
 	outline: none;
-	border-color: #667eea;
-	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	border-color: var(--input-focus-border-color);
+	box-shadow: 0 0 0 3px var(--input-focus-ring-color);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+	color: var(--text-muted);
 }
 
 .form-button {
 	width: 100%;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	color: white;
-	border: none;
-	padding: 0.75rem 1.5rem;
-	border-radius: 6px;
-	font-size: 1rem;
-	font-weight: 500;
-	cursor: pointer;
-	transition: transform 0.2s ease;
-}
-
-.form-button:hover:not(:disabled) {
-	transform: translateY(-1px);
-}
-
-.form-button:disabled {
-	opacity: 0.6;
-	cursor: not-allowed;
 }

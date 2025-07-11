@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Button } from "../ui";
+import { API_CONFIG, ERROR_MESSAGES } from "../../utils/constants";
 import "./PostForm.css";
 
 function PostForm({ onPostCreated }) {
@@ -13,17 +15,20 @@ function PostForm({ onPostCreated }) {
 		setLoading(true);
 
 		try {
-			const response = await fetch("http://localhost:8000/api/posts/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					...getAuthHeaders(),
-				},
-				body: JSON.stringify({ title, body }),
-			});
+			const response = await fetch(
+				`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.POSTS.CREATE}`,
+				{
+					method: "POST",
+					headers: {
+						...API_CONFIG.HEADERS,
+						...getAuthHeaders(),
+					},
+					body: JSON.stringify({ title, body }),
+				}
+			);
 
 			if (!response.ok) {
-				throw new Error("Failed to create post");
+				throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			}
 
 			const newPost = await response.json();
@@ -35,7 +40,7 @@ function PostForm({ onPostCreated }) {
 			}
 		} catch (error) {
 			console.error("Error creating post:", error);
-			alert("Failed to create post. Please try again.");
+			alert(ERROR_MESSAGES.NETWORK_ERROR);
 		} finally {
 			setLoading(false);
 		}
@@ -43,7 +48,7 @@ function PostForm({ onPostCreated }) {
 
 	return (
 		<div className="post-form-container">
-			<h3>Create New Post</h3>
+			<h3 className="form-title">Create New Post</h3>
 			<div className="post-form">
 				<form className="form-container" onSubmit={handleSubmit}>
 					<div className="form-group">
@@ -69,9 +74,15 @@ function PostForm({ onPostCreated }) {
 							style={{ resize: "none" }}
 						/>
 					</div>
-					<button className="form-button" type="submit" disabled={loading}>
+					<Button
+						variant="primary"
+						size="large"
+						type="submit"
+						disabled={loading}
+						className="form-button"
+					>
 						{loading ? "Creating..." : "Create Post"}
-					</button>
+					</Button>
 				</form>
 			</div>
 		</div>

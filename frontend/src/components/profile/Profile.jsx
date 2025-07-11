@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { Button, Card } from "../ui";
+import { API_CONFIG, ERROR_MESSAGES } from "../../utils/constants";
 import EditProfileForm from "./EditProfileForm";
 import "./Profile.css";
 
@@ -18,15 +20,17 @@ function Profile({ username, isOwnProfile = false }) {
 	const fetchProfile = async () => {
 		try {
 			const url = isOwnProfile
-				? "http://localhost:8000/api/profiles/me/"
-				: `http://localhost:8000/api/profiles/${username}/`;
+				? `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PROFILES.CURRENT}`
+				: `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PROFILES.DETAIL(
+						username
+				  )}`;
 
 			const response = await fetch(url, {
 				headers: getAuthHeaders(),
 			});
 
 			if (!response.ok) {
-				throw new Error("Failed to fetch profile");
+				throw new Error(ERROR_MESSAGES.NETWORK_ERROR);
 			}
 
 			const data = await response.json();
@@ -49,14 +53,36 @@ function Profile({ username, isOwnProfile = false }) {
 		setIsEditing(false);
 	};
 
-	if (loading) return <div className="profile-loading">Loading profile...</div>;
-	if (error) return <div className="profile-error">Error: {error}</div>;
+	if (loading)
+		return (
+			<div className="profile-loading">
+				<div className="loading-spinner"></div>
+				<p>Loading profile...</p>
+			</div>
+		);
+	if (error)
+		return (
+			<div className="profile-error">
+				<span className="error-icon">⚠️</span>
+				<p>Error: {error}</p>
+			</div>
+		);
 	if (!profile)
-		return <div className="profile-not-found">Profile not found</div>;
+		return (
+			<div className="profile-not-found">
+				<span className="error-icon">❌</span>
+				<p>Profile not found</p>
+			</div>
+		);
 
 	return (
 		<div className="profile-container">
-			{showToast && <div className="toast">Profile updated!</div>}
+			{showToast && (
+				<div className="toast">
+					<span className="toast-icon">✅</span>
+					Profile updated!
+				</div>
+			)}
 			{isEditing && (
 				<EditProfileForm
 					profile={profile}
@@ -64,7 +90,7 @@ function Profile({ username, isOwnProfile = false }) {
 					onCancel={handleEditCancel}
 				/>
 			)}
-			<div className="profile-header">
+			<Card variant="elevated" className="profile-header">
 				<div className="profile-avatar">
 					<img
 						src={
@@ -100,14 +126,16 @@ function Profile({ username, isOwnProfile = false }) {
 					)}
 				</div>
 				{isOwnProfile && (
-					<button
-						className="edit-profile-button"
+					<Button
+						variant="outline"
+						size="medium"
 						onClick={() => setIsEditing(true)}
+						className="edit-profile-button"
 					>
 						Edit Profile
-					</button>
+					</Button>
 				)}
-			</div>
+			</Card>
 
 			<div className="profile-stats">
 				<div className="stat">

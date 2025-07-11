@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../ui";
 import "./BaseModal.css";
 
 function BaseModal({ isOpen, onClose, children }) {
@@ -7,9 +8,15 @@ function BaseModal({ isOpen, onClose, children }) {
 	return (
 		<div className="modal-overlay" onClick={onClose}>
 			<div className="modal-content" onClick={(e) => e.stopPropagation()}>
-				<button className="close-modal-btn" onClick={onClose}>
+				<Button
+					variant="ghost"
+					size="small"
+					onClick={onClose}
+					className="close-modal-btn"
+					title="Close"
+				>
 					&times;
-				</button>
+				</Button>
 				{children}
 			</div>
 		</div>

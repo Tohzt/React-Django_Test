@@ -1,10 +1,14 @@
 .App {
-	background-color: green;
+	background: linear-gradient(135deg, var(--primary-100), var(--secondary-100));
 	width: 100%;
 	min-height: 100vh;
 	margin: 0 auto;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 		sans-serif;
+}
+
+html[data-theme="dark"] .App {
+	background: linear-gradient(135deg, #23272f 0%, #2d3140 100%);
 }
 
 .main-container {
@@ -13,12 +17,7 @@
 	align-items: center;
 	gap: 2rem;
 	min-height: calc(100vh - 4rem);
-	background-color: #f0f0f0;
-	border-radius: 12px;
-	padding: 0.5rem 1.5rem 1.5rem 1.5rem;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	width: 100%;
-	max-width: 800px;
 	margin: 0 auto;
 }
 

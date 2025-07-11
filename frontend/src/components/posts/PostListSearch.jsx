@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { Button } from "../ui";
+import { SEARCH_CONFIG } from "../../utils/constants";
 import "./PostListSearch.css";
 
 function PostListSearch({ onSearch }) {
@@ -13,7 +15,7 @@ function PostListSearch({ onSearch }) {
 					onSearch(term);
 				}
 				setIsSearching(false);
-			}, 300); // 300ms delay
+			}, SEARCH_CONFIG.DEBOUNCE_DELAY);
 
 			return () => clearTimeout(timeoutId);
 		},
@@ -51,13 +53,15 @@ function PostListSearch({ onSearch }) {
 				/>
 				{isSearching && <div className="search-spinner"></div>}
 				{searchTerm && (
-					<button
+					<Button
+						variant="ghost"
+						size="small"
 						onClick={handleClearSearch}
 						className="clear-search-btn"
 						title="Clear search"
 					>
 						×
-					</button>
+					</Button>
 				)}
 			</div>
 		</div>

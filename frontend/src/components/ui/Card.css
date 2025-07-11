@@ -1,0 +1,314 @@
+/* ===================================
+   CARD COMPONENT STYLES
+   =================================== */
+
+.card {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	border-radius: var(--card-border-radius, 16px);
+	background: transparent;
+	padding: 2px; /* Border thickness */
+	min-width: 0;
+	min-height: 0;
+	z-index: 1;
+	overflow: visible;
+}
+
+.card::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	background: linear-gradient(135deg, var(--primary-700), var(--secondary-700));
+	pointer-events: none;
+}
+
+.card__background {
+	flex: 1 1 auto;
+	width: 100%;
+	height: 100%;
+	background: var(--bg-primary);
+	border-radius: inherit;
+	padding: var(--card-padding, 24px);
+	min-width: 0;
+	min-height: 0;
+	position: relative;
+	z-index: 1;
+}
+
+html[data-theme="dark"] .card {
+	background: transparent;
+}
+
+html[data-theme="dark"] .card::before {
+	background: linear-gradient(135deg, #23272f 0%, #2d3140 100%),
+		linear-gradient(135deg, var(--primary-700), var(--secondary-700));
+}
+
+/* ===================================
+   CARD VARIANTS
+   =================================== */
+
+.card--default {
+	background-color: var(--bg-primary);
+	border-color: var(--border-light);
+}
+
+.card--elevated {
+	background-color: var(--bg-primary);
+	border: none;
+	box-shadow: var(--shadow-lg);
+}
+
+.card--outlined {
+	background-color: transparent;
+	border: 2px solid var(--border-medium);
+	box-shadow: none;
+}
+
+.card--filled {
+	background-color: var(--bg-secondary);
+	border: none;
+	box-shadow: none;
+}
+
+.card--interactive {
+	cursor: pointer;
+	transition: all var(--transition-base);
+}
+
+.card--interactive:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-lg);
+}
+
+/* ===================================
+   CARD PADDING VARIANTS
+   =================================== */
+
+.card--padding-none {
+	padding: 0;
+}
+
+.card--padding-small {
+	padding: var(--space-3);
+}
+
+.card--padding-default {
+	padding: var(--card-padding);
+}
+
+.card--padding-large {
+	padding: var(--space-8);
+}
+
+/* ===================================
+   CARD SHADOW VARIANTS
+   =================================== */
+
+.card--shadow-none {
+	box-shadow: none;
+}
+
+.card--shadow-small {
+	box-shadow: var(--shadow-sm);
+}
+
+.card--shadow-default {
+	box-shadow: var(--card-shadow);
+}
+
+.card--shadow-large {
+	box-shadow: var(--shadow-lg);
+}
+
+.card--shadow-xl {
+	box-shadow: var(--shadow-xl);
+}
+
+/* ===================================
+   CARD HOVER EFFECTS
+   =================================== */
+
+.card--hover {
+	transition: all var(--transition-base);
+}
+
+.card--hover:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-lg);
+}
+
+/* ===================================
+   CARD SECTIONS
+   =================================== */
+
+.card__header {
+	padding: var(--space-4) var(--space-6);
+	border-bottom: 1px solid var(--border-light);
+	background-color: var(--bg-secondary);
+	font-weight: var(--font-semibold);
+	color: var(--text-primary);
+}
+
+.card__header:first-child {
+	border-top-left-radius: var(--card-border-radius);
+	border-top-right-radius: var(--card-border-radius);
+}
+
+.card__body {
+	padding: var(--space-6);
+	color: var(--text-primary);
+}
+
+.card__footer {
+	padding: var(--space-4) var(--space-6);
+	border-top: 1px solid var(--border-light);
+	background-color: var(--bg-secondary);
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--space-2);
+}
+
+.card__footer:last-child {
+	border-bottom-left-radius: var(--card-border-radius);
+	border-bottom-right-radius: var(--card-border-radius);
+}
+
+.card__image {
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+
+.card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform var(--transition-base);
+}
+
+.card--hover .card__image img:hover {
+	transform: scale(1.05);
+}
+
+/* ===================================
+   CARD LAYOUTS
+   =================================== */
+
+.card--horizontal {
+	display: flex;
+	flex-direction: row;
+}
+
+.card--horizontal .card__image {
+	width: 200px;
+	height: auto;
+	flex-shrink: 0;
+}
+
+.card--horizontal .card__body {
+	flex: 1;
+}
+
+/* ===================================
+   CARD SIZES
+   =================================== */
+
+.card--small {
+	max-width: 300px;
+}
+
+.card--medium {
+	max-width: 400px;
+}
+
+.card--large {
+	max-width: 600px;
+}
+
+.card--full {
+	width: 100%;
+}
+
+/* ===================================
+   CARD GROUPS
+   =================================== */
+
+.card-group {
+	display: grid;
+	gap: var(--space-4);
+}
+
+.card-group--2 {
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card-group--3 {
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card-group--4 {
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+	.card--horizontal {
+		flex-direction: column;
+	}
+
+	.card--horizontal .card__image {
+		width: 100%;
+		height: 200px;
+	}
+
+	.card-group--2,
+	.card-group--3,
+	.card-group--4 {
+		grid-template-columns: 1fr;
+	}
+
+	.card__header,
+	.card__body,
+	.card__footer {
+		padding: var(--space-3) var(--space-4);
+	}
+}
+
+/* ===================================
+   DARK MODE ADAPTATIONS
+   =================================== */
+
+html[data-theme="dark"] .card--elevated,
+html[data-theme="dark"] .card--default,
+html[data-theme="dark"] .card--outlined,
+html[data-theme="dark"] .card--filled {
+	background: none !important;
+	background-color: unset !important;
+}
+
+html[data-theme="dark"] .Card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .card--elevated,
+html[data-theme="dark"] .card--default,
+html[data-theme="dark"] .card--outlined,
+html[data-theme="dark"] .card--filled {
+	border: 2px solid transparent !important;
+	border-radius: var(--card-border-radius, 16px) !important;
+	background: linear-gradient(135deg, #23272f 0%, #2d3140 100%) padding-box,
+		linear-gradient(135deg, var(--primary-700), var(--secondary-700)) border-box !important;
+	background-clip: padding-box, border-box !important;
+	background-origin: padding-box, border-box !important;
+	box-shadow: none !important;
+}
+
+[data-theme="dark"] .card {
+	/* Remove background-color: unset; and restore default if needed */
+}
