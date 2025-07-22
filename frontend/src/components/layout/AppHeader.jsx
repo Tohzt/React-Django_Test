@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "../ui";
-import DarkModeToggle from "../ui/DarkModeToggle";
 import { APP_CONFIG } from "../../utils/constants";
 import "./AppHeader.css";
 import { useState, useRef, useEffect } from "react";
@@ -12,7 +11,6 @@ function AppHeader() {
 	const location = useLocation();
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const dropdownRef = useRef(null);
-	const darkModeToggleRef = useRef(null);
 	const { toggleTheme, isDark } = useTheme();
 
 	// Close dropdown on outside click
@@ -53,12 +51,12 @@ function AppHeader() {
 						Home
 					</Link>
 					<Link
-						to="/posts"
+						to="/forum"
 						className={`nav-link ${
-							location.pathname === "/posts" ? "active" : ""
+							location.pathname === "/forum" ? "active" : ""
 						}`}
 					>
-						Posts
+						Forum
 					</Link>
 				</nav>
 			</div>

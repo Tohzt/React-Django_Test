@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { Button, Card } from "../ui";
-import { API_CONFIG, ERROR_MESSAGES } from "../../utils/constants";
-import EditProfileForm from "./EditProfileForm";
-import "./Profile.css";
+import { useAuth } from "../context/AuthContext";
+import { Button, Card } from "../components/ui";
+import { API_CONFIG, ERROR_MESSAGES } from "../utils/constants";
+import EditProfileForm from "../components/profile/EditProfileForm";
+import "../components/profile/Profile.css";
 
 function Profile({ username, isOwnProfile = false }) {
 	const [profile, setProfile] = useState(null);
@@ -63,14 +63,14 @@ function Profile({ username, isOwnProfile = false }) {
 	if (error)
 		return (
 			<div className="profile-error">
-				<span className="error-icon">⚠️</span>
+				<span className="error-icon"> 6a0 e0f</span>
 				<p>Error: {error}</p>
 			</div>
 		);
 	if (!profile)
 		return (
 			<div className="profile-not-found">
-				<span className="error-icon">❌</span>
+				<span className="error-icon"> 74c</span>
 				<p>Profile not found</p>
 			</div>
 		);
@@ -79,7 +79,7 @@ function Profile({ username, isOwnProfile = false }) {
 		<div className="profile-container">
 			{showToast && (
 				<div className="toast">
-					<span className="toast-icon">✅</span>
+					<span className="toast-icon"> 705</span>
 					Profile updated!
 				</div>
 			)}
@@ -110,11 +110,11 @@ function Profile({ username, isOwnProfile = false }) {
 					</h2>
 					<p className="profile-username">@{profile.username}</p>
 					{profile.location && (
-						<p className="profile-location">📍 {profile.location}</p>
+						<p className="profile-location"> 4cd {profile.location}</p>
 					)}
 					{profile.website && (
 						<p className="profile-website">
-							🌐{" "}
+							310{" "}
 							<a
 								href={profile.website}
 								target="_blank"
@@ -174,7 +174,7 @@ function Profile({ username, isOwnProfile = false }) {
 							href={`/profile/${profile.username}/posts`}
 							className="view-all-posts"
 						>
-							View all {profile.post_count} posts →
+							View all {profile.post_count} posts 192
 						</a>
 					)}
 				</div>

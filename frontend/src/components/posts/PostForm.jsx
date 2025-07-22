@@ -8,11 +8,17 @@ function PostForm({ onPostCreated }) {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [tagsInput, setTagsInput] = useState("");
 	const { getAuthHeaders } = useAuth();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
+
+		const tags = tagsInput
+			.split(",")
+			.map((t) => t.trim())
+			.filter((t) => t.length > 0);
 
 		try {
 			const response = await fetch(
@@ -23,7 +29,7 @@ function PostForm({ onPostCreated }) {
 						...API_CONFIG.HEADERS,
 						...getAuthHeaders(),
 					},
-					body: JSON.stringify({ title, body }),
+					body: JSON.stringify({ title, body, tags }),
 				}
 			);
 
@@ -34,6 +40,7 @@ function PostForm({ onPostCreated }) {
 			const newPost = await response.json();
 			setTitle("");
 			setBody("");
+			setTagsInput("");
 
 			if (onPostCreated) {
 				onPostCreated(newPost);
@@ -72,6 +79,16 @@ function PostForm({ onPostCreated }) {
 							placeholder="Enter post content..."
 							rows="4"
 							style={{ resize: "none" }}
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="tags">Tags:</label>
+						<input
+							type="text"
+							id="tags"
+							value={tagsInput}
+							onChange={(e) => setTagsInput(e.target.value)}
+							placeholder="Enter tags, separated by commas"
 						/>
 					</div>
 					<Button

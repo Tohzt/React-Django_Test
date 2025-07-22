@@ -1,10 +1,10 @@
 import { useState } from "react";
-import PostList from "./PostList";
-import PostForm from "./PostForm";
-import PostListHeader from "./PostListHeader";
-import PostListSearch from "./PostListSearch";
-import BaseModal from "../modals/BaseModal";
-import "./Posts.css";
+import PostList from "../components/posts/PostList";
+import PostForm from "../components/posts/PostForm";
+import PostListHeader from "../components/posts/PostListHeader";
+import PostListSearch from "../components/posts/PostListSearch";
+import BaseModal from "../components/modals/BaseModal";
+import "../components/posts/Posts.css";
 
 function Posts() {
 	const [refreshTrigger, setRefreshTrigger] = useState(0);

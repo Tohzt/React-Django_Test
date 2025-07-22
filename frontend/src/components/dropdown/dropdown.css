@@ -1,0 +1,19 @@
+.dropdown-container {
+	padding: 1rem;
+	background: lightgray;
+	position: relative;
+	width: 200px;
+	height: 60px;
+}
+
+.dropdown-drawer {
+	position: absolute;
+	background: green;
+	width: 200px;
+	top: 60px;
+	left: 0px
+}
+.dropdown-option {
+	border-top: 2px solid cyan;
+	z-index: var(--z-dropdown)
+}

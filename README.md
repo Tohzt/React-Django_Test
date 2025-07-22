@@ -1,6 +1,6 @@
 # React + Django Full Stack Application
 
-A modern social media platform built with React frontend and Django REST API backend, featuring user authentication, posts, comments, profile management, and dark mode support.
+A modern social media platform built with React frontend and Django REST API backend, featuring user authentication, posts, comments, profile management, and dark mode support. This is a Reddit-style community platform for sharing posts and engaging in discussions.
 
 ## 🚀 Quick Start
 
@@ -52,9 +52,17 @@ React+DJango/
 ├── backend/                    # Django backend
 │   ├── core/                  # Main Django project
 │   │   ├── settings.py        # Django configuration
-│   │   └── urls.py            # Main URL routing
+│   │   ├── urls.py            # Main URL routing
+│   │   ├── wsgi.py            # WSGI configuration
+│   │   ├── asgi.py            # ASGI configuration
+│   │   └── api/               # API URL routing
+│   │       └── urls.py        # API URLs
 │   ├── posts/                 # Posts and user management app
 │   │   ├── models.py          # Database models (Post, UserProfile, Comment)
+│   │   ├── admin.py           # Django admin configuration
+│   │   ├── apps.py            # App configuration
+│   │   ├── views.py           # Basic views
+│   │   ├── tests.py           # Test files
 │   │   └── api/               # REST API
 │   │       ├── views.py       # API views
 │   │       ├── serializers.py # Data serialization
@@ -62,6 +70,7 @@ React+DJango/
 │   │       ├── profile_views.py # User profile endpoints
 │   │       └── urls.py        # API URLs
 │   ├── media/                 # User uploaded files (avatars)
+│   ├── db.sqlite3             # SQLite database
 │   └── manage.py              # Django management
 ├── frontend/                  # React frontend
 │   ├── src/
@@ -71,12 +80,23 @@ React+DJango/
 │   │   │   ├── profile/       # User profile components
 │   │   │   ├── layout/        # Layout components
 │   │   │   ├── modals/        # Modal components
+│   │   │   ├── dropdown/      # Dropdown components
 │   │   │   └── ui/            # UI components (Button, Card, etc.)
 │   │   ├── context/           # React context (AuthContext, ThemeContext)
 │   │   ├── styles/            # Design system and CSS
+│   │   │   └── design-system.css # Core design tokens
 │   │   ├── utils/             # Utilities and constants
-│   │   └── App.jsx            # Main app component
-│   └── package.json           # Node dependencies
+│   │   │   └── constants.js   # Application constants
+│   │   ├── assets/            # Static assets
+│   │   │   └── react.svg      # React logo
+│   │   ├── App.jsx            # Main app component
+│   │   ├── App.css            # App-level styles
+│   │   ├── main.jsx           # App entry point
+│   │   └── index.css          # Global styles
+│   ├── public/                # Public assets
+│   ├── package.json           # Node dependencies
+│   ├── vite.config.js         # Vite configuration
+│   └── eslint.config.js       # ESLint configuration
 └── env/                       # Python virtual environment
 ```
 
@@ -250,6 +270,8 @@ frontend/src/
 │   ├── profile/               # Profile components
 │   │   ├── Profile.css        # Profile page styles
 │   │   └── EditProfileForm.css # Profile editing styles
+│   ├── dropdown/              # Dropdown components
+│   │   └── dropdown.css       # Dropdown styles
 │   └── modals/                # Modal components
 │       └── BaseModal.css      # Base modal styles
 ├── index.css                  # Global styles and imports
@@ -298,6 +320,7 @@ frontend/src/
 - **Layout Components**: Header with gradient backgrounds, navigation, user dropdown
 - **Post Components**: List views, forms, search functionality with consistent spacing
 - **Profile Components**: Profile display and editing with avatar management
+- **Dropdown Components**: User menu and navigation dropdowns
 
 ### 🌙 Dark Mode Implementation
 
@@ -367,6 +390,31 @@ frontend/src/
 - **Easy Theming**: Dark mode and future themes easily implemented
 - **Scalable Architecture**: New components follow established patterns
 - **Performance Optimized**: CSS custom properties for efficient updates
+
+## ⚠️ Note on Constants
+
+The `frontend/src/utils/constants.js` file contains many references to features that are not currently implemented:
+
+**Currently Implemented:**
+
+- User authentication (login/register/logout)
+- Posts and comments system
+- User profiles with avatars
+- Dark mode support
+
+**Referenced but Not Implemented:**
+
+- "Game-U Platform" branding (app is actually a social media platform)
+- User roles (student, instructor, admin) and role-based permissions
+- Course management features
+- Project management features
+- File upload system (only avatars work)
+- Pagination system
+- Notification system
+- Advanced search functionality
+- Admin panel routes
+
+The constants file appears to be designed for a future educational gaming platform, but the current application is a Reddit-style social media platform focused on posts and discussions.
 
 ## 🛠️ Development Tips
 

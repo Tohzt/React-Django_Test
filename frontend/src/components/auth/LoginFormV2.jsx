@@ -5,7 +5,6 @@ import {
 	ERROR_MESSAGES,
 	SUCCESS_MESSAGES,
 } from "../../utils/constants";
-import "./LoginFormV2.css";
 
 function LoginFormV2({ onLoginSuccess, onSwitchToRegister }) {
 	const [formData, setFormData] = useState({
@@ -74,9 +73,9 @@ function LoginFormV2({ onLoginSuccess, onSwitchToRegister }) {
 		<div className="login-form-container">
 			<Card variant="elevated" padding="large" className="login-card">
 				<Card.Header>
-					<h2 className="login-title">Welcome Back to Game-U</h2>
+					<h2 className="login-title">Sign In to Your Account</h2>
 					<p className="login-subtitle">
-						Sign in to continue your learning journey
+						Welcome back! Please sign in to continue.
 					</p>
 				</Card.Header>
 
@@ -135,7 +134,6 @@ function LoginFormV2({ onLoginSuccess, onSwitchToRegister }) {
 						</Button>
 					</form>
 				</Card.Body>
-
 				<Card.Footer>
 					<div className="login-footer">
 						<p className="footer-text">

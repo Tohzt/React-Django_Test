@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { Button, Card } from "../ui";
-import { APP_CONFIG } from "../../utils/constants";
-import "./Home.css";
+import { useAuth } from "../context/AuthContext";
+import { Button, Card } from "../components/ui";
+import { APP_CONFIG } from "../utils/constants";
+import "../components/layout/Home.css";
+import Dropdown from "../components/dropdown/dropdown";
 
 function Home() {
 	const { user } = useAuth();
@@ -20,7 +21,7 @@ function Home() {
 					<Card variant="interactive" className="nav-card">
 						<Link to="/posts" className="nav-card-link">
 							<Card.Body>
-								<h3 className="card-title">📝 Community Posts</h3>
+								<h3 className="card-title"> 4dd Community Posts</h3>
 								<p className="card-description">
 									Browse and create posts in our community forum
 								</p>
@@ -31,7 +32,7 @@ function Home() {
 					<Card variant="interactive" className="nav-card">
 						<Link to="/profile" className="nav-card-link">
 							<Card.Body>
-								<h3 className="card-title">👤 My Profile</h3>
+								<h3 className="card-title"> 464 My Profile</h3>
 								<p className="card-description">
 									View and edit your profile information
 								</p>
@@ -39,6 +40,7 @@ function Home() {
 						</Link>
 					</Card>
 				</div>
+				<Dropdown />
 
 				<div className="quick-actions">
 					<h3 className="section-title">Quick Actions</h3>

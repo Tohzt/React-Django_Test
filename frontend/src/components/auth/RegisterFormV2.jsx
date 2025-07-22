@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, Card } from "../ui";
 import { API_CONFIG, ERROR_MESSAGES } from "../../utils/constants";
-import "./RegisterFormV2.css";
 
 function RegisterFormV2({ onRegisterSuccess, onSwitchToLogin }) {
 	const [formData, setFormData] = useState({
@@ -93,89 +92,93 @@ function RegisterFormV2({ onRegisterSuccess, onSwitchToLogin }) {
 		<div className="register-form-container">
 			<Card variant="elevated" padding="large" className="register-card">
 				<Card.Header>
-					<h2 className="register-title">Join Game-U</h2>
+					<h2 className="register-title">Create Your Account</h2>
 					<p className="register-subtitle">
-						Create your account to start learning game development
+						Sign up to join the community and start posting.
 					</p>
 				</Card.Header>
 
 				<Card.Body>
-					<form className="register-form" onSubmit={handleSubmit}>
-						<div className="form-group">
-							<label htmlFor="username" className="form-label">
-								Username
-							</label>
-							<input
-								type="text"
-								id="username"
-								name="username"
-								value={formData.username}
-								onChange={handleChange}
-								required
-								placeholder="Choose a username..."
-								className="form-input"
-								disabled={loading}
-							/>
+					<form
+						className="register-form two-column-form"
+						onSubmit={handleSubmit}
+					>
+						<div className="form-columns">
+							<div className="form-col">
+								<div className="form-group">
+									<label htmlFor="username" className="form-label">
+										Username
+									</label>
+									<input
+										type="text"
+										id="username"
+										name="username"
+										value={formData.username}
+										onChange={handleChange}
+										required
+										placeholder="Choose a username..."
+										className="form-input"
+										disabled={loading}
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="email" className="form-label">
+										Email
+									</label>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										value={formData.email}
+										onChange={handleChange}
+										required
+										placeholder="Enter your email..."
+										className="form-input"
+										disabled={loading}
+									/>
+								</div>
+							</div>
+							<div className="form-col">
+								<div className="form-group">
+									<label htmlFor="password" className="form-label">
+										Password
+									</label>
+									<input
+										type="password"
+										id="password"
+										name="password"
+										value={formData.password}
+										onChange={handleChange}
+										required
+										placeholder="Choose a password..."
+										className="form-input"
+										disabled={loading}
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="confirmPassword" className="form-label">
+										Confirm Password
+									</label>
+									<input
+										type="password"
+										id="confirmPassword"
+										name="confirmPassword"
+										value={formData.confirmPassword}
+										onChange={handleChange}
+										required
+										placeholder="Confirm your password..."
+										className="form-input"
+										disabled={loading}
+									/>
+								</div>
+							</div>
 						</div>
-
-						<div className="form-group">
-							<label htmlFor="email" className="form-label">
-								Email
-							</label>
-							<input
-								type="email"
-								id="email"
-								name="email"
-								value={formData.email}
-								onChange={handleChange}
-								required
-								placeholder="Enter your email..."
-								className="form-input"
-								disabled={loading}
-							/>
-						</div>
-
-						<div className="form-group">
-							<label htmlFor="password" className="form-label">
-								Password
-							</label>
-							<input
-								type="password"
-								id="password"
-								name="password"
-								value={formData.password}
-								onChange={handleChange}
-								required
-								placeholder="Choose a password..."
-								className="form-input"
-								disabled={loading}
-							/>
-						</div>
-
-						<div className="form-group">
-							<label htmlFor="confirmPassword" className="form-label">
-								Confirm Password
-							</label>
-							<input
-								type="password"
-								id="confirmPassword"
-								name="confirmPassword"
-								value={formData.confirmPassword}
-								onChange={handleChange}
-								required
-								placeholder="Confirm your password..."
-								className="form-input"
-								disabled={loading}
-							/>
-						</div>
-
 						{error && (
 							<div className="error-message">
 								<span className="error-icon">⚠️</span>
 								{error}
 							</div>
 						)}
-
 						<Button
 							type="submit"
 							variant="primary"
@@ -188,7 +191,6 @@ function RegisterFormV2({ onRegisterSuccess, onSwitchToLogin }) {
 						</Button>
 					</form>
 				</Card.Body>
-
 				<Card.Footer>
 					<div className="register-footer">
 						<p className="footer-text">

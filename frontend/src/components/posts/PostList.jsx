@@ -6,7 +6,7 @@ import EditPostForm from "./EditPostForm";
 import "./PostList.css";
 import RepliesDrawer from "./RepliesDrawer";
 
-function PostList({ refreshTrigger, searchTerm = "" }) {
+function PostList({ refreshTrigger, searchTerm = "", categorySlug = null }) {
 	const [posts, setPosts] = useState([]);
 	const [filteredPosts, setFilteredPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -27,15 +27,21 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 
 	useEffect(() => {
 		fetchPosts();
-	}, [refreshTrigger]);
+	}, [refreshTrigger, categorySlug]);
 
-	// Filter posts based on search term
+	// Filter posts based on search term and category
 	useEffect(() => {
-		if (!searchTerm.trim()) {
-			setFilteredPosts(posts);
-		} else {
-			const filtered = posts.filter((post) => {
-				const searchLower = searchTerm.toLowerCase();
+		let filtered = posts;
+
+		// Filter by category if provided
+		if (categorySlug) {
+			filtered = filtered.filter((post) => post.category_slug === categorySlug);
+		}
+
+		// Filter by search term if provided
+		if (searchTerm.trim()) {
+			const searchLower = searchTerm.toLowerCase();
+			filtered = filtered.filter((post) => {
 				return (
 					post.title.toLowerCase().includes(searchLower) ||
 					post.body.toLowerCase().includes(searchLower) ||
@@ -43,9 +49,10 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 						post.author_username.toLowerCase().includes(searchLower))
 				);
 			});
-			setFilteredPosts(filtered);
 		}
-	}, [posts, searchTerm]);
+
+		setFilteredPosts(filtered);
+	}, [posts, searchTerm, categorySlug]);
 
 	// Close context menu when clicking outside
 	useEffect(() => {
@@ -271,6 +278,15 @@ function PostList({ refreshTrigger, searchTerm = "" }) {
 										</span>
 									</div>
 									<h3 className="post-title">{post.title}</h3>
+									{post.tags && post.tags.length > 0 && (
+										<div className="post-tags">
+											{post.tags.map((tag) => (
+												<span className="post-tag" key={tag}>
+													{tag}
+												</span>
+											))}
+										</div>
+									)}
 									<p className="post-body">{post.body}</p>
 									<span className="post-timestamp">
 										{new Date(post.created_at).toLocaleDateString()}
